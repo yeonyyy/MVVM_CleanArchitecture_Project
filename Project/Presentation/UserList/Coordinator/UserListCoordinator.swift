@@ -24,15 +24,15 @@ class DefaultUserListCoordinator : UserListCoordinator {
     
     func start() {
         let vm = UserListViewModel(userListUseCase:
-                                    DefaultUserListUseCase(userRepository: DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: ["Authorization":"Bearer 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", "Accept":"application/vnd.github+json"]))))))
+                                    DefaultUserListUseCase(userRepository: DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: [ "Accept":"application/vnd.github+json"]))))))
         let viewController = UserListViewController(coordinator: self, viewModel: vm)
         navigationController.setViewControllers([viewController], animated: true)
     }
     
     func navigateToDetail(with user: User) {
-        let vm = UserViewModel(user: user,
+        let vm = UserDetailViewModel(user: user,
                                userDetailUseCase:
-                                DefaultUserDetailUseCase(userRepository: DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: ["Authorization":"Bearer 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", "Accept":"application/vnd.github+json"]))))))
+                                DefaultUserDetailUseCase(userRepository: DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: [ "Accept":"application/vnd.github+json"]))))))
         let viewController = UserDetailViewController(viewModel: vm)
         navigationController.pushViewController(viewController, animated: true)
 

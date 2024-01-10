@@ -11,7 +11,7 @@ import RxSwift
 class BookmarkViewController: UIViewController {
     private let coordinator: BookmarkCoordinator
     
-    private let bookmarkViewModel : BookmarkViewModel
+    private let bookmarkViewModel : BookmarkViewModelType
     
     private var disposeBag = DisposeBag()
     
@@ -25,7 +25,7 @@ class BookmarkViewController: UIViewController {
     
     let refreshControl = UIRefreshControl()
     
-    init(coordinator : BookmarkCoordinator, viewModel : BookmarkViewModel) {
+    init(coordinator : BookmarkCoordinator, viewModel : BookmarkViewModelType) {
         self.bookmarkViewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)

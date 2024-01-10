@@ -9,11 +9,11 @@ import Foundation
 import RxSwift
 import RxCocoa
 
-protocol UserViewModelInputs {
+protocol UserDetailViewModelInputs {
     var fetchModel : PublishSubject<Void> { get }
 }
 
-protocol UserViewModelOutputs {
+protocol UserDetailViewModelOutputs {
     var title: Driver<String> { get }
     var fullname: Driver<String> { get }
     var blog: Driver<String?> { get }
@@ -22,14 +22,14 @@ protocol UserViewModelOutputs {
     var error: Signal<String?> { get }
 }
 
-protocol UserViewModelType {
-    var inputs: UserViewModelInputs { get }
-    var outputs: UserViewModelOutputs { get }
+protocol UserDetailViewModelType {
+    var inputs: UserDetailViewModelInputs { get }
+    var outputs: UserDetailViewModelOutputs { get }
 }
 
-class UserViewModel : UserViewModelType, UserViewModelInputs, UserViewModelOutputs{
-    var outputs: UserViewModelOutputs { return self }
-    var inputs: UserViewModelInputs { return self }
+class UserDetailViewModel : UserDetailViewModelType, UserDetailViewModelInputs, UserDetailViewModelOutputs{
+    var outputs: UserDetailViewModelOutputs { return self }
+    var inputs: UserDetailViewModelInputs { return self }
     
     // MARK: - Inputs
     var fetchModel = PublishSubject<Void>()

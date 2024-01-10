@@ -14,7 +14,7 @@ import RxCocoa
 class UserListViewController: UIViewController {
     private var coordinator : UserListCoordinator?
 
-    private let userListViewModel : UserListViewModel
+    private let userListViewModel : UserListViewModelType
     
     private var disposeBag = DisposeBag()
     
@@ -42,7 +42,7 @@ class UserListViewController: UIViewController {
     
     let refreshControl = UIRefreshControl()
     
-    init(coordinator: UserListCoordinator?, viewModel : UserListViewModel) {
+    init(coordinator: UserListCoordinator?, viewModel : UserListViewModelType) {
         self.userListViewModel = viewModel
         self.coordinator = coordinator
         super.init(nibName: nil, bundle: nil)
@@ -110,14 +110,8 @@ class UserListViewController: UIViewController {
             .bind(to: userListViewModel.inputs.refreshModels)
             .disposed(by: disposeBag)
         
-        tableView.rx.didScroll
-            .subscribe(with: self) { owner, _  in
-                let offSetY = owner.tableView.contentOffset.y
-                let contentHeight = owner.tableView.contentSize.height
-                
-                let moreLoading = offSetY > (contentHeight - owner.tableView.frame.size.height - 100)
-                owner.userListViewModel.inputs.loadMoreModels.onNext(moreLoading)
-            }
+        tableView.rx.reachedBottom.asObservable()
+            .bind(to: userListViewModel.inputs.loadMoreModels)
             .disposed(by: disposeBag)
         
         tableView.rx.modelSelected(UserListTableViewCellModel.self)

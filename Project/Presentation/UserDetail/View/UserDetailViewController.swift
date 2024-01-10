@@ -54,11 +54,11 @@ class UserDetailViewController: UIViewController {
         return label
     }()
     
-    private var viewModel : UserViewModel!
+    private var viewModel : UserDetailViewModelType!
     
     private let disposeBag = DisposeBag()
     
-    init(viewModel : UserViewModel) {
+    init(viewModel : UserDetailViewModelType) {
         self.viewModel = viewModel
         super.init(nibName: nil, bundle: nil)
     }

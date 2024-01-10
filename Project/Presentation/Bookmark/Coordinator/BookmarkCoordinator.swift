@@ -26,15 +26,15 @@ class DefaultBookmarkCoordinator : Coordinator, BookmarkCoordinator {
     func start() {
         let viewcontroller = BookmarkViewController(coordinator: self,
                                                     viewModel:
-                                                        BookmarkViewModel(DefaultBookmarkUseCase(DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: ["Authorization":"Bearer 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", "Accept":"application/vnd.github+json"])))))))
+                                                        BookmarkViewModel(DefaultBookmarkUseCase(DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: ["Accept":"application/vnd.github+json"])))))))
         navigationController.setViewControllers([viewcontroller], animated: false)
     }
     
     func navigateToDetail(with user: User) {
         let viewController = UserDetailViewController(viewModel:
-                                                        UserViewModel(user: user,
+                                                        UserDetailViewModel(user: user,
                                                                       userDetailUseCase:
-                                                                        DefaultUserDetailUseCase(userRepository: DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: ["Authorization":"Bearer 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", "Accept":"application/vnd.github+json"])))))))
+                                                                        DefaultUserDetailUseCase(userRepository: DefaultUserRepository(dataTransferService: DefaultDataTransferService(with: DefaultNetworkService(config: ApiDataNetworkConfig(baseURL: URL(string: "https://api.github.com")!,headers: [ "Accept":"application/vnd.github+json"])))))))
         navigationController.pushViewController(viewController, animated: true)
         
     }
