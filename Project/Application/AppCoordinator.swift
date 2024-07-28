@@ -58,10 +58,11 @@ enum TabBarPage {
 }
 
 class AppCoordinator : NSObject, Coordinator, UITabBarControllerDelegate {
-    var finishDelegate: CoordinatorFinishDelegate? = nil
+
+    weak var finishDelegate: CoordinatorFinishDelegate? = nil
     
-    var childCoordinator: [Coordinator] = []
-    
+    var childCoordinators: [Coordinator] = []
+
     var navigationController: UINavigationController
     
     var tabBarController: UITabBarController
@@ -96,12 +97,15 @@ class AppCoordinator : NSObject, Coordinator, UITabBarControllerDelegate {
         switch page {
         case .home:
             let usersCoordinator = DefaultUserListCoordinator(navController)
+            usersCoordinator.finishDelegate = self
             usersCoordinator.start()
+            childCoordinators.append(usersCoordinator)
             
         case .Bookmark:
             let bookmarkCoordinator = DefaultBookmarkCoordinator(navController)
+            bookmarkCoordinator.finishDelegate = self
             bookmarkCoordinator.start()
-            
+            childCoordinators.append(bookmarkCoordinator)
         }
         
         return navController
@@ -131,4 +135,11 @@ class AppCoordinator : NSObject, Coordinator, UITabBarControllerDelegate {
         navigationController.viewControllers = [tabBarController]
     }
     
+}
+
+extension AppCoordinator : CoordinatorFinishDelegate {
+    func coordinatorDidFinish(childCoordinator: any Coordinator) {
+        
+    }
+
 }

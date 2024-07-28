@@ -7,17 +7,17 @@
 
 import UIKit
 
-protocol BookmarkCoordinator {
+protocol BookmarkCoordinator : Coordinator {
     func navigateToDetail(with user: User)
 }
 
-class DefaultBookmarkCoordinator : Coordinator, BookmarkCoordinator {
+class DefaultBookmarkCoordinator : BookmarkCoordinator {
 
     var navigationController: UINavigationController
-    
-    var childCoordinator: [Coordinator] = []
 
-    var finishDelegate: CoordinatorFinishDelegate?
+    var childCoordinators: [Coordinator] = []
+
+    weak var finishDelegate: CoordinatorFinishDelegate?
 
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController

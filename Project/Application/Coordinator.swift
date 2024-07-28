@@ -14,7 +14,7 @@ protocol CoordinatorFinishDelegate: AnyObject {
 
 protocol Coordinator : AnyObject {
     var navigationController: UINavigationController { get set }
-    var childCoordinator : [Coordinator] { get set }
+    var childCoordinators : [Coordinator] { get set }
     
     var finishDelegate: CoordinatorFinishDelegate? { get set }
     func start()
@@ -25,7 +25,7 @@ protocol Coordinator : AnyObject {
 
 extension Coordinator {
     func finish() {
-        childCoordinator.removeAll()
+        childCoordinators.removeAll()
         finishDelegate?.coordinatorDidFinish(childCoordinator: self)
     }
 }

@@ -7,16 +7,17 @@
 
 import UIKit
 
-protocol UserListCoordinator {
+protocol UserListCoordinator : Coordinator {
     func navigateToDetail(with user: User)
 }
 
 class DefaultUserListCoordinator : UserListCoordinator {
+    
     var navigationController: UINavigationController
     
-    var childCoordinator: [Coordinator] = []
+    var childCoordinators: [Coordinator] = []
     
-    var finishDelegate: CoordinatorFinishDelegate? = nil
+    weak var finishDelegate: CoordinatorFinishDelegate? = nil
     
     required init(_ navigationController: UINavigationController) {
         self.navigationController = navigationController
