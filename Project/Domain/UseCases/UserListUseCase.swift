@@ -32,11 +32,7 @@ final class DefaultUserListUseCase: UserListUseCase {
                 return self.userRepository.readAll().map { localUsers in
                     return remoteUsers.map { remoteUser in
                         var new = remoteUser
-                        if localUsers.contains(remoteUser) {
-                            new.mark = true
-                        }else {
-                            new.mark = false
-                        }
+                        new.mark = localUsers.contains(remoteUser)
                         return new
                     }
                 }
